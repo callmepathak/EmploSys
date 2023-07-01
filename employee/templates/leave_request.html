@@ -1,0 +1,58 @@
+{% extends 'emp_base.html' %}
+
+{% block main %}
+
+<div class="card shadow m-2">
+    <div class="card-body" >
+        <h5 class="p-2 text-danger" style="border-bottom :2px solid orange">Leave Request</h5>
+        <div class="container-fluid"  >
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-row">
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Reason</label>
+                            <input type="text" name="reason" class="form-control" placeholder="Enter Reason for the leave"  value="{{leave.reason}}">
+                        </div>
+                    </div>
+
+                     <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Number of days</label>
+                            <input type="text" name="NOD" class="form-control" placeholder="Enter Number of days"  value="{{leave.Num_day}}">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Current Status:-{{leave.Status}} </label>
+                            <select name="Cur_status" class="form-control">
+                                <option value="none"> Current Status</option>
+                                <option value="applied">applied</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <input type="submit" value="Request" class="m-2 px-3 btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+{% if error == "no" %}
+<script>
+    alert('Leave request sent Successfully');
+    window.location = ('{% url 'leave_request' %}');
+</script>
+{% endif %}
+{% if error == "yes" %}
+<script>
+    alert('Something went wrong,try Again...');
+</script>
+{% endif %}
+
+{% endblock  %}

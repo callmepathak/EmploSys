@@ -1,0 +1,51 @@
+{% extends 'admin_base.html' %}
+
+{% block main %}
+
+<div class="card shadow m-2">
+    <div class="card-body" >
+        <h5 class="p-2 text-danger" style="border-bottom :2px solid orange">Leave Request</h5>
+        <div class="container-fluid"  >
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-row">
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Reason:-{{leave.reason}}</label>
+                             <br><label>Number of days:-{{leave.Num_day}}</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Current Status:-{{leave.Status}} </label>
+                            <select name="Cur_status" class="form-control">
+                                <option value="none"> Current Status</option>
+                                <option value="confirm">confirm</option>
+                                <option value="reject">reject</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <input type="submit" value="confirm" class="m-2 px-3 btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+{% if error == "no" %}
+<script>
+    alert('Action is taken for Employee Leave request');
+    window.location = ('{% url 'request_status' leave.user.id %}');
+</script>
+{% endif %}
+{% if error == "yes" %}
+<script>
+    alert('Something went wrong,try Again...');
+</script>
+{% endif %}
+
+{% endblock  %}

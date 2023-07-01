@@ -1,0 +1,40 @@
+{% extends 'admin_base.html' %}
+
+{% block main %}
+
+<div class="card shadow m-2">
+    <div class="card-body">
+        <h5 class="p-2 text-danger" style="border-bottom :2px solid orange">Add Joining Date of Employee</h5>
+        <div class="container-fluid">
+            <form method="post" >
+                {% csrf_token %}
+                <div class="form-row">
+
+                     <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Joining Date [{{employee.joiningdate}}]</label>
+                            <input type="date" name="jdate" class="form-control" >
+                        </div>
+                    </div>
+
+                </div>
+
+                <input type="submit" value="submit" class="m-2 px-3 btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+
+{% if error == "no" %}
+<script>
+    alert('Employee joining date has be updated Successfully');
+    window.location = ('{% url 'edit_profile' employee.id %}');
+</script>
+{% endif %}
+{% if error == "yes" %}
+<script>
+    alert('Something went wrong,try Again...');
+</script>
+{% endif %}
+
+{% endblock  %}
